@@ -5,7 +5,7 @@ import "@tensorflow/tfjs-backend-webgl";
 import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { MediaPipeFaceMesh } from "@tensorflow-models/face-landmarks-detection/dist/types";
-import { draw, getHeadAnglesCos,facePosition, FaceMove, FacePosition,dataType64toFile} from "./faceTool";
+import { draw, getHeadAnglesCos,facePosition, FacePosition, faceCoords} from "./faceTool";
 import "./Camera.css";
 import { Dropdown} from 'react-bootstrap';
 import fs from 'fs'
@@ -21,7 +21,7 @@ import { string } from "@tensorflow/tfjs-core";
 import { isString } from "@tensorflow/tfjs-core/dist/util_base";
 
 type InputProps = { // The common Part
-  updatePhotos: (e:any) => void;
+  updatePhotos: (photo:any, faceCoords:any) => void;
   command: Array<FacePosition>;
 }
 
@@ -39,6 +39,12 @@ export const Camera = (props:InputProps) => {
     );
     detect(model);
   };
+
+
+  
+
+
+
 
   const detect = async (model: MediaPipeFaceMesh)=>{
 
@@ -61,24 +67,16 @@ export const Camera = (props:InputProps) => {
           const [x,y] = getHeadAnglesCos(keypoints as Coords3D);
 
           const fPosition = facePosition(x,y);
-
-
+          console.log(x,y)
           //console.log(`Command:${props.command[commandIndex.current]} Position:${fPosition.facePosition}`)
           //console.log(props.command[commandIndex.current] === fPosition.facePosition)
+          if(fPosition.facePosition === props.command[commandIndex.current]){            
 
+            const fCoords = faceCoords(predictions[0]);
 
-          if(fPosition.facePosition === props.command[commandIndex.current]){
-            
-          
-            
-           //extractFace(predictions,webcam.current,captureImage(),videoWidth, videoHeight)
-            
-
-            props.updatePhotos(captureImage());
+            props.updatePhotos(captureImage(), fCoords);
 
             commandIndex.current++;
-            
-
           }
 
         }
@@ -108,18 +106,12 @@ export const Camera = (props:InputProps) => {
   const captureImage = useCallback(
     () => {
       if(webcam.current !== null){
+        
+        
+        
         const imageSrc = webcam.current.getScreenshot();
 
-        if (imageSrc !== null){
-          //const image = fs.readFileAsync(imageSrc);
-          //const b64Image = Buffer.from(image).toString('base64');
-          console.log(imageSrc)
-          dataType64toFile(imageSrc)
-        }
-
-
-
-          return imageSrc;
+        return imageSrc;
         
       }
       else{
@@ -130,6 +122,11 @@ export const Camera = (props:InputProps) => {
     },
     [webcam]
   );
+
+    
+
+
+
 
   return (
     <div className="camera" >

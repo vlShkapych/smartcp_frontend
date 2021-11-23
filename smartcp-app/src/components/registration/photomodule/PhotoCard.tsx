@@ -1,13 +1,17 @@
+
+
+import {useRef} from 'react'
+
 interface PhotoCardProps {
     number: number;
-    photo: string;
-  }
+    photo: any;
+}
    
   
   
-  const PhotoCard = ({number, photo}:PhotoCardProps) => {
-  
-    
+const PhotoCard = ({number, photo}:PhotoCardProps) => {
+
+
     
     const blockStyle = {
       backgroundColor:'#008000',
@@ -30,13 +34,19 @@ interface PhotoCardProps {
   
     };
   
-  
+    
+
+    
+
+
+
+    //<img src={photo} alt="photo" style = {imgStyle}/>
     return(
         <div key={number} style = {blockStyle}>
-            <img src={photo} alt="photo" style = {imgStyle}/>
+            <img src={ photo } style = {imgStyle}></img>
             <p>{number}</p>
         </div>
     );
-  }
+}
   
   export default PhotoCard;

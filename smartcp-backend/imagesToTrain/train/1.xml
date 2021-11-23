@@ -1,0 +1,28 @@
+
+<annotation>
+	<folder>train</folder>
+	<filename>1.jpeg</filename>
+	<path>~/tensorflow2/models/research/object_detection/images/train/1.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>412</width>
+		<height>427</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Vladko</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>0</xmin>
+			<ymin>0</ymin>
+			<xmax>412</xmax>
+			<ymax>427</ymax>
+		</bndbox>
+	</object>
+</annotation>
+

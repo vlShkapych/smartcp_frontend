@@ -34,16 +34,16 @@ export const facePosition = (xCos:number, yCos:number):FaceMove => {
   if(Math.abs(xCos) <=0.01 && Math.abs(yCos) <= 0.01){
     result.facePosition = FacePosition.Center;
   }
-  else if(Math.abs(xCos) <= 0.5 && yCos >= 0.5){
+  else if(Math.abs(xCos) <= 0.05 && yCos >= 0.35){
     result.facePosition = FacePosition.Up;
   }
-  else if(Math.abs(xCos) <= 0.05 && yCos <= -0.5){
+  else if(Math.abs(xCos) <= 0.05 && yCos <= -0.35){
     result.facePosition = FacePosition.Down;
   }
-  else if(xCos >= 0.5 && Math.abs(yCos) <= 0.05){
+  else if(xCos >= 0.35 && Math.abs(yCos) <= 0.05){
     result.facePosition = FacePosition.Right;
   }
-  else if(xCos <= -0.5 && Math.abs(yCos) <= 0.05){
+  else if(xCos <= -0.35 && Math.abs(yCos) <= 0.05){
     result.facePosition = FacePosition.Left;
   }
   else{ 
@@ -152,6 +152,7 @@ export const draw = (
 ) => {
   if (predictions.length > 0) {
     predictions.forEach((prediction: AnnotatedPrediction) => {
+      
       const keypoints = prediction.scaledMesh;
       const boundingBox = prediction.boundingBox;
       const bottomRight = boundingBox.bottomRight as Coord2D;
@@ -194,21 +195,25 @@ export const extractFace = (
 };
 
 
-export const dataType64toFile = (dataurl:string, filename = "NewFile") => {
-  //Convert base64 to file
+export const faceCoords = (prediction:AnnotatedPrediction) =>{
 
-  
-  let arr:any|null = dataurl.split(","),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n)
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n)
+  const topLeft  = prediction.boundingBox.topLeft as Coord2D;
+  const bottomRight  = prediction.boundingBox.bottomRight as Coord2D;
+
+  const height =  bottomRight[0] -  topLeft[0] + 120;
+  const width =  bottomRight[1] -  topLeft[1] + 70;
+
+  return {
+    x: topLeft[0] + 40, 
+    y: topLeft[1] - 40 , 
+    height: height,
+    width: width
   }
-  let newFile = new File([u8arr], filename, {
-    type: mime,
-  })
-  console.log(u8arr)
-  return newFile
+
 }
+
+
+//   let _H = detection.box.height;
+//   let _W = detection.box.width;
+//   let _X = detection.box._x;
+//   let _Y = detection.box._y;

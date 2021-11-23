@@ -5,10 +5,10 @@ import './Registration.css'
 import PhotoPage from './photomodule/PhotoPage';
 
 
+ 
 
 
-
-class Registration extends Component<{}, { show: any,photos:Array<string>| undefined }> {
+class Registration extends Component<{}, { show: any,photos:Array<string>| undefined, firstName:string|undefined,lastName:string|undefined }> {
 
     constructor(props:any){
         super(props);
@@ -16,6 +16,9 @@ class Registration extends Component<{}, { show: any,photos:Array<string>| undef
         this.state = {
             show: false,
             photos: undefined,
+            firstName: undefined,
+            lastName: undefined,
+            
 
 
         }
@@ -26,11 +29,45 @@ class Registration extends Component<{}, { show: any,photos:Array<string>| undef
         console.log(photos);
         
     }
-    submit(){
+    submit(e:any){
         
         if(this.state.photos !== undefined){
           
+            e.preventDefault();
+            fetch('http://localhost:5000/add', {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                photos: this.state.photos.map(photo => photo.slice(photo.indexOf(','))),
+              })
+            })
+              .then(response => response.json())
+              .then(json => {
+                console.log(json);
+              })
+              .catch(error => {
+                console.log("FuuuuCking ERRRER")
+              });
             
+            // fetch(`http://localhost:5000/`,{
+            //     'method':'POST',
+            //     headers : {
+            //     'Content-Type':'application/json'
+            //     },
+            //     body:JSON.stringify({ 
+            //         firstName: this.state.firstName,
+            //         lastName: this.state.lastName,
+            //         photos: this.state.photos
+            //     })
+            // })
+            // .then(response => response.json())
+            // .catch(error => console.log(error))
+
         }
     
     }
@@ -43,10 +80,10 @@ class Registration extends Component<{}, { show: any,photos:Array<string>| undef
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Row>
                     <Col>
-                    <Form.Control placeholder="First name" />
+                    <Form.Control placeholder="First name" onChange={(e:any) => this.setState({firstName:e.target.value})} />
                     </Col>
                     <Col>
-                    <Form.Control placeholder="Last name" />
+                    <Form.Control placeholder="Last name" onChange={(e:any) => this.setState({lastName:e.target.value})} />
                     </Col>
                 </Row>
                 </Form.Group>
@@ -56,7 +93,7 @@ class Registration extends Component<{}, { show: any,photos:Array<string>| undef
                     </Button>
                 </Form.Group>
                 
-                <Button onClick={()=>this.submit()} variant="primary" type="submit" >
+                <Button onClick={(e)=>this.submit(e)} variant="primary" type="submit" >
                     Submit
                 </Button>
                 </Form>
