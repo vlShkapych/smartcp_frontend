@@ -70,10 +70,13 @@ export const Camera = (props:InputProps) => {
           console.log(x,y)
           //console.log(`Command:${props.command[commandIndex.current]} Position:${fPosition.facePosition}`)
           //console.log(props.command[commandIndex.current] === fPosition.facePosition)
+
           if(fPosition.facePosition === props.command[commandIndex.current]){            
 
             const fCoords = faceCoords(predictions[0]);
 
+
+            console.log("biba")
             props.updatePhotos(captureImage(), fCoords);
 
             commandIndex.current++;
@@ -107,7 +110,8 @@ export const Camera = (props:InputProps) => {
     () => {
       if(webcam.current !== null){
         
-        
+        console.log()
+
         
         const imageSrc = webcam.current.getScreenshot();
 

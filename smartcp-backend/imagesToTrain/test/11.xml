@@ -1,0 +1,28 @@
+
+<annotation>
+	<folder>train</folder>
+	<filename>11.jpeg</filename>
+	<path>~/tensorflow2/models/research/object_detection/images/test/11.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>745</width>
+		<height>558</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Vladyslav Shkapych</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>214</xmin>
+			<ymin>25</ymin>
+			<xmax>624</xmax>
+			<ymax>451</ymax>
+		</bndbox>
+	</object>
+</annotation>
+

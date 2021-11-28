@@ -1,0 +1,28 @@
+
+<annotation>
+	<folder>train</folder>
+	<filename>18.jpeg</filename>
+	<path>~/tensorflow2/models/research/object_detection/images/train/18.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>745</width>
+		<height>558</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>VLadonis</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>241</xmin>
+			<ymin>58</ymin>
+			<xmax>618</xmax>
+			<ymax>476</ymax>
+		</bndbox>
+	</object>
+</annotation>
+

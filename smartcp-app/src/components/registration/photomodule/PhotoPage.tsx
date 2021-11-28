@@ -6,6 +6,9 @@ import PhotoCard from "./PhotoCard"
 import {FacePosition} from './faceTool'
 import { Button,} from 'react-bootstrap';
 
+import {useState,useEffect} from 'react'
+
+
 
 
 
@@ -13,7 +16,7 @@ interface ParentProps  { // The common Part
     submitPhotos: (e:any) => void;
 }
 
-class PhotoPage extends Component<ParentProps,{photos:any,photoStep:number}>{
+class PhotoPage extends Component<ParentProps,{photos:Array<{src: any,faceCoords:any}>,photoStep:number}>{
 
 
     constructor(props:any){
@@ -45,66 +48,18 @@ class PhotoPage extends Component<ParentProps,{photos:any,photoStep:number}>{
         FacePosition.Center
     ]
     
-    cropImage =  (image64:any,pixelCrop:any) => {
-        try {
-            const image = new Image();
-            image.src = image64;
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext('2d')  
-            
-            console.log(image.width);
-            console.log(image.naturalWidth);
-
-            canvas.width = pixelCrop.width;
-            canvas.height = pixelCrop.height;
 
 
-            return new Promise(resolve => {
-                const scaleX = image.naturalWidth / image.width;
-                const scaleY = image.naturalHeight / image.height;
-                console.log(scaleX,scaleY)
-                image.onload = () => { 
-                    if(ctx !== null){
-                        ctx.drawImage(
-                            image,
-                            pixelCrop.x,
-                            pixelCrop.y,
-                            pixelCrop.width,
-                            pixelCrop.height,
-                            0,
-                            0,
-                            pixelCrop.width,
-                            pixelCrop.height)
-                    }
-                    const cropedImg = canvas.toDataURL("image/jpeg",1);
-                    resolve(cropedImg);
-                }
-            });
 
-        }
-
-
-        catch (e) {
-            console.log("crop the image");
-        }
-    };
-
-
-    async updatePhotos(photo:any, faceCoords:any ) {
+    updatePhotos(src:any, faceCoords:any ) {
 
         let photos = this.state.photos;
-
-
         //this.image64toCanvasRef(imageCanvasRef, photo,crop)
-        const cropedPhoto = await this.cropImage(photo,faceCoords);
         let photoStep = this.state.photoStep + 1;
-        this.setState({ photos: [...photos, cropedPhoto],photoStep:photoStep});
+        this.setState({photos:[...photos, { src,faceCoords}]});
+        this.setState({photoStep:photoStep});
 
-
-
-
-
-
+        
     }
 
 

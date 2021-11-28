@@ -7,21 +7,21 @@
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>388</width>
-		<height>414</height>
+		<width>745</width>
+		<height>558</height>
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>Vladko</name>
+		<name>Vladyslav Shkapych</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0</xmin>
-			<ymin>0</ymin>
-			<xmax>388</xmax>
-			<ymax>414</ymax>
+			<xmin>220</xmin>
+			<ymin>27</ymin>
+			<xmax>628</xmax>
+			<ymax>450</ymax>
 		</bndbox>
 	</object>
 </annotation>

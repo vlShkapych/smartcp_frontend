@@ -31,7 +31,7 @@ export const facePosition = (xCos:number, yCos:number):FaceMove => {
     facePosition: FacePosition.Center,
   }
 
-  if(Math.abs(xCos) <=0.01 && Math.abs(yCos) <= 0.01){
+  if(Math.abs(xCos) <=0.05 && Math.abs(yCos) <= 0.05){
     result.facePosition = FacePosition.Center;
   }
   else if(Math.abs(xCos) <= 0.05 && yCos >= 0.35){
@@ -211,6 +211,51 @@ export const faceCoords = (prediction:AnnotatedPrediction) =>{
   }
 
 }
+
+
+export const cropImage =  (image64:any,pixelCrop:any) => {
+  try {
+      const image = new Image();
+      image.src = image64;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext('2d')  
+      
+      console.log(image.width);
+      console.log(image.naturalWidth);
+
+      canvas.width = pixelCrop.width;
+      canvas.height = pixelCrop.height;
+
+
+      return new Promise(resolve => {
+          const scaleX = image.naturalWidth / image.width;
+          const scaleY = image.naturalHeight / image.height;
+          console.log(scaleX,scaleY)
+          image.onload = () => { 
+              if(ctx !== null){
+                  ctx.drawImage(
+                      image,
+                      pixelCrop.x,
+                      pixelCrop.y,
+                      pixelCrop.width,
+                      pixelCrop.height,
+                      0,
+                      0,
+                      pixelCrop.width,
+                      pixelCrop.height)
+              }
+              const cropedImg = canvas.toDataURL("image/jpeg",1);
+              resolve(cropedImg);
+          }
+      });
+
+  }
+
+
+  catch (e) {
+      console.log("crop the image");
+  }
+};
 
 
 //   let _H = detection.box.height;

@@ -1,12 +1,16 @@
 import React from 'react';
+
 import './App.css';
-import Registration from './components/registration/Registration'
-
-
+import {Navigation} from './components/NavBar'
+import Router  from './Routes'
+import Registration from "./components/registration/Registration";
 
 function App() {
   return (
-    <Registration></Registration>
+
+
+      <Registration/>
+
   );
 }
 

@@ -45,7 +45,7 @@ xmlImgTrain = '''
 
 
 
-def convert_and_save(b64_string,name, personId):
+def convert_and_save(b64_string,name, personId,faceCoord):
 
     FILE_UPLOAD_DIR = 'imagesToTrain/'
 
@@ -70,20 +70,26 @@ def convert_and_save(b64_string,name, personId):
 
     with open(xmlPath, 'x') as f:
         f.write(xmlImgTrain.format(imageName = fileName, 
-        imagePath = "~/tensorflow2/models/research/object_detection/images/train/"+fileName,
-        imageWidth = img.width, imageHeight = img.height,name = personId,
-        xMin = 0, yMin = 0,xMax = img.width, yMax = img.height))
+            imagePath = "~/tensorflow2/models/research/object_detection/images/train/"+fileName,
+            imageWidth = img.width, imageHeight = img.height,name = personId,
+            xMin = int(faceCoord['x']), yMin = int(faceCoord['y']),
+            xMax = int(faceCoord['x'])+int(faceCoord['width']),
+            yMax = int(faceCoord['y'])+int(faceCoord['height'])))
 
     if(int(name) % 2 !=  0):
         imagePath = os.path.join(FILE_UPLOAD_DIR,'test',fileName);
         img.save(imagePath, 'jpeg');
         xmlPath = os.path.join(FILE_UPLOAD_DIR,'test',xmlFile)
 
+        
+
         with open(xmlPath, 'x') as f:
             f.write(xmlImgTrain.format(imageName = fileName, 
             imagePath = "~/tensorflow2/models/research/object_detection/images/test/"+fileName,
             imageWidth = img.width, imageHeight = img.height,name = personId,
-            xMin = 0, yMin = 0,xMax = img.width, yMax = img.height))
+            xMin = int(faceCoord['x']), yMin = int(faceCoord['y']),
+            xMax = int(faceCoord['x'])+int(faceCoord['width']),
+            yMax = int(faceCoord['y'])+int(faceCoord['height'])))
 
     
 
@@ -106,15 +112,16 @@ def create_app(test_config=None):
     db = MongoEngine()
     db.init_app(app)
     class Worker(db.Document):
-        firstName = db.StringField()
-        lastName = db.StringField()
+
+        name = db.StringField();
+        img = db.StringField();
+        created = db.DateTimeField( default=datetime.datetime.utcnow )        
+
 
     CORS(app, support_credentials=True)
 
-
-
     if test_config is None:
-        # load the instance config, if it exists, when not testing
+        # load the instance config, if it exists, when not testvald"ing
         app.config.from_pyfile('config.py', silent=True)
     else:
         # load the test config if passed in
@@ -127,27 +134,31 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    @app.route('/cardsList',  methods=['GET'])
+    def cardList():
+        workers = Worker.objects().get_or_404()
+
+        return jsonify(workers.to_json());
 
     
     
     
     @app.route('/add', methods=['POST'])
-    def login():
+    def addCard():
 
 
 
 
 
         record = json.loads(request.data)
-        worker = Worker(firstName=record['firstName'],
-                lastName=record['lastName'])
+
+
+        worker = Worker(name=record['name'], img = record['photos'][0]['src']);
         worker.save()
 
         for i,photo in enumerate(record['photos']):
-            convert_and_save(photo,i,record['firstName']);
+            print(photo["faceCoords"])
+            convert_and_save(photo["src"],i,record['name'],photo["faceCoords"]);
     
         return jsonify(worker.to_json())
 
