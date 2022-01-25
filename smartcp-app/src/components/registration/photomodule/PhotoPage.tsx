@@ -76,23 +76,25 @@ class PhotoPage extends Component<ParentProps,{photos:Array<{src: any,faceCoords
         }
 
         return (
-            <div className="photoPageBody">
-            <div className="cameraBox">
-                <Camera command = {this.photoSteps} updatePhotos={this.updatePhotos.bind(this)}></Camera>
-                <div className="cameraInfoBox">
-                    <CameraCommands command = {this.photoSteps[this.state.photoStep]} state = {1}></CameraCommands>
-                </div>
-            </div>
+            <>
+                <div className="photoPageBody">
+                    <div className="cameraBox">
+                        <Camera command = {this.photoSteps} updatePhotos={this.updatePhotos.bind(this)}></Camera>
+                        <div className="cameraInfoBox">
+                            <CameraCommands command = {this.photoSteps[this.state.photoStep]} state = {1}></CameraCommands>
+                        </div>
+                    </div>
 
-            <div className="galery">
-                {mojeJebaloHTML}
-            </div>
-            <Button variant="primary" onClick={() => {this.props.submitPhotos(this.state.photos);}}>
+                    <div className="galery">
+                        {mojeJebaloHTML}
+                       
+                    </div>
+                    <Button className="addBtn" variant="primary"  onClick={() => {this.props.submitPhotos(this.state.photos);}}>
                             Add photos
-            </Button>
-            
-            
-            </div>
+                    </Button>
+                </div>
+                
+            </>
         )
     }
 }

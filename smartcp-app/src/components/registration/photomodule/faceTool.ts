@@ -200,12 +200,12 @@ export const faceCoords = (prediction:AnnotatedPrediction) =>{
   const topLeft  = prediction.boundingBox.topLeft as Coord2D;
   const bottomRight  = prediction.boundingBox.bottomRight as Coord2D;
 
-  const height =  bottomRight[0] -  topLeft[0] + 120;
-  const width =  bottomRight[1] -  topLeft[1] + 70;
+  const height =  bottomRight[0] -  topLeft[0]+70;
+  const width =  bottomRight[1] -  topLeft[1] ;
 
   return {
-    x: topLeft[0] + 40, 
-    y: topLeft[1] - 40 , 
+    x: topLeft[0]+50, 
+    y: topLeft[1]-30, 
     height: height,
     width: width
   }

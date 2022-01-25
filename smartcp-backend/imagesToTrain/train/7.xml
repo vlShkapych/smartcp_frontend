@@ -13,15 +13,15 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>Vladyslav Shkapych</name>
+		<name>Vladyslav</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>213</xmin>
-			<ymin>25</ymin>
-			<xmax>622</xmax>
-			<ymax>453</ymax>
+			<xmin>248</xmin>
+			<ymin>97</ymin>
+			<xmax>574</xmax>
+			<ymax>465</ymax>
 		</bndbox>
 	</object>
 </annotation>

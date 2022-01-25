@@ -1,0 +1,58 @@
+
+
+.listBody{
+    padding:0;
+}
+
+.status{
+    background-color:green;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    border:none;
+    margin: auto;
+    margin-bottom: 6px;
+}
+.turnstiles{
+    
+    width:20%;
+    height:100%;  
+}
+.tunstilePanel{
+    width:80%;
+    height:100%;
+   
+    
+}
+.turnstilesPage{
+    height:95vh;
+    width:98vw;
+    display: flex;
+    
+    padding:20px;
+}
+.turnstileCameraBox{
+    margin:0 0 0 800px;
+
+}
+
+.updateAiBtn{
+    margin-left: 800px;
+    margin-top: 30px;
+}
+.messageBoxBody{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.messageBoxLogsBtn{
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    
+}
+.logMessage{
+    white-space: pre-wrap;
+}

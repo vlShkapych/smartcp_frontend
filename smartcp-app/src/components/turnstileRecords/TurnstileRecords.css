@@ -1,0 +1,10 @@
+.turnstilesRecords{
+    width: 90%;
+    margin: 10px auto;
+    height: 90vh;
+}
+.turnstRecTable{
+    max-height: 90%;
+    width: 100%;
+    overflow-y: auto;
+}

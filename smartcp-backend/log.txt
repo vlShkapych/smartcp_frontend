@@ -1,0 +1,24 @@
+Start preparation for training AI
+Reading images for training:
+New id:{'Vladyslav'}
+Training dataset:17 photos
+OK
+Create tf record:
+OK
+Setup AI Model config file:
+OK
+Successfully converted xml to csv.
+Successfully converted xml to csv.
+Successfully created the TFRecords: /home/vladyslav/tensorflow1/models/research/object_detection/train.record
+Successfully created the TFRecords: /home/vladyslav/tensorflow1/models/research/object_detection/test.record
+Start training
+Traceback (most recent call last):
+  File "/home/vladyslav/tensorflow1/models/research/object_detection/legacy/train.py", line 51, in <module>
+    from object_detection.builders import dataset_builder
+  File "/home/vladyslav/.virtualenvs/tensorflow/lib/python3.7/site-packages/object_detection-0.1-py3.7.egg/object_detection/builders/dataset_builder.py", line 33, in <module>
+    from object_detection.builders import decoder_builder
+  File "/home/vladyslav/.virtualenvs/tensorflow/lib/python3.7/site-packages/object_detection-0.1-py3.7.egg/object_detection/builders/decoder_builder.py", line 25, in <module>
+    from object_detection.data_decoders import tf_example_decoder
+  File "/home/vladyslav/.virtualenvs/tensorflow/lib/python3.7/site-packages/object_detection-0.1-py3.7.egg/object_detection/data_decoders/tf_example_decoder.py", line 32, in <module>
+    from object_detection.protos import input_reader_pb2
+ImportError: cannot import name 'input_reader_pb2' from 'object_detection.protos' (/home/vladyslav/.virtualenvs/tensorflow/lib/python3.7/site-packages/object_detection-0.1-py3.7.egg/object_detection/protos/__init__.py)

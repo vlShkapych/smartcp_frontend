@@ -1,53 +1,44 @@
 
 
 import React, { Component, } from 'react';
+import CardsTable from "./CardsTable"
 
 
 
 
 
-
-class CardsList extends Component<{},{cards:any}> {
+class CardsList extends Component<{},{cards:any|undefined}> {
 
     constructor(props:any){
         super(props);
 
         this.state = {
-            cards: [],
+            cards: undefined,
         }
     }
 
-    // componentDidMount(){
+    componentWillMount(){
 
 
-    //     fetch('http://localhost:5000/cardsList', {
-    //       method: 'GET',
-    //       mode: 'cors',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //       })
-    //       .then(response => response.json())
-    //       .then(json => {
+        fetch('http://localhost:5000/cardsList', {
+          method: 'GET',
+          mode: 'cors',
+          })
+          .then(response => response.json())
+          .then(json => {
 
-    //         const jsonObj = JSON.parse(json);
-    //         //this.setState({cards: jsonObj})
-    //         console.log(jsonObj);
+            const jsonObj = JSON.parse(json);
+            this.setState({cards: jsonObj})
+            console.log(this.state.cards)
             
-    //       })
-    //}
+          })
+    }
     
-    
-
-
-
-    
-
 
     render() {
         return(
             <>
-                {this.state.cards}
+                <CardsTable cardsTable = {this.state.cards}/>
             </>
         )
   }
